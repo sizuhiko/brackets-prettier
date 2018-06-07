@@ -17,6 +17,6 @@ define(function(require) {
     DocumentManager.on('documentSaved.prettier', format.onSave);
     DocumentManager.on('documentSaved.prettierOptions', options.onChange);
     DocumentManager.on('documentRefreshed.prettierOptions', options.onChange);
-    options.load();
+    options.init();
   });
 });
