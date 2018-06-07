@@ -1,0 +1,11 @@
+{
+  "interactive-linter.javascript": false,
+  "language": {
+    "javascript": {
+      "linting.prefer": [
+        "ESLint"
+      ],
+      "linting.usePreferredOnly": true
+    }
+  }
+}

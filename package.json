@@ -1,0 +1,41 @@
+{
+  "name": "sizuhiko.brackets.prettier",
+  "title": "Brackets Prettier",
+  "description": "Brackets extension for formatting JavaScript using prettier.",
+  "homepage": "https://github.com/sizuhiko/brackets-prettier",
+  "version": "1.0.0",
+  "author": "Kenichiro Kishida <sizuhiko@gmail.com> (https://github.com/sizuhiko)",
+  "license": "MIT",
+  "categories": "formatting",
+  "keywords": [
+    "brackets-extension",
+    "prettier",
+    "format",
+    "formatting",
+    "JavaScript"
+  ],
+  "engines": {
+    "brackets": ">=1.12.0"
+  },
+  "i18n": [
+    "en",
+    "ja"
+  ],
+  "package-i18n": {
+    "ja": {
+      "description": "PrettierでJavaScriptをフォーマットするBrackets拡張"
+    }
+  },
+  "dependencies": {
+    "prettier": "^1.13.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-node": "^6.0.1",
+    "gulp": "^3.9.1",
+    "gulp-install": "^1.1.0"
+  },
+  "scripts": {
+    "update3rd": "gulp update3rd"
+  }
+}
