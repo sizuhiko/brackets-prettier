@@ -1,4 +1,6 @@
-
+[![npm Version](https://img.shields.io/npm/v/sizuhiko.brackets.prettier.svg)](https://www.npmjs.com/package/sizuhiko.brackets.prettier)
+[![Brackets Extension Registry Version](https://badges.ml/sizuhiko.brackets.prettier/version.svg)](https://brackets-extension-badges.github.io#sizuhiko.brackets.prettier)
+[![Brackets Extension Registry Downloads](https://badges.ml/sizuhiko.brackets.prettier/total.svg)](https://brackets-extension-badges.github.io#sizuhiko.brackets.prettier)
 
 # Brackets Prettier
 
