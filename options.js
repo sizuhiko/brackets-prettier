@@ -85,7 +85,7 @@ define(function(require, exports, module) {
       .catch(function(error) {
         console.error(
           'Brackets Prettier - Error parsing options: (' + error.message + '), using default.',
-          error,
+          error
         );
         options = {};
       });
