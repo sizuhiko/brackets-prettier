@@ -3,7 +3,7 @@
   "title": "Brackets Prettier",
   "description": "Brackets extension for formatting JavaScript using prettier.",
   "homepage": "https://github.com/sizuhiko/brackets-prettier",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "Kenichiro Kishida <sizuhiko@gmail.com> (https://github.com/sizuhiko)",
   "license": "MIT",
   "categories": "formatting",
