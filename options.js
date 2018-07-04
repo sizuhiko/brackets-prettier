@@ -2,11 +2,75 @@ define(function(require, exports, module) {
   'use strict';
 
   const OPTIONS_FILE_NAME = '.prettierrc';
+  const OPTIONS_FILE_EXTENSIONS = ['', '.json'];
 
   const FileSystem = brackets.getModule('filesystem/FileSystem');
   const ProjectManager = brackets.getModule('project/ProjectManager');
+  const FileUtils = brackets.getModule('file/FileUtils');
 
   let options;
+
+  function readOptionsJSON(optionsFilepath) {
+    return new Promise(function(resolve, reject) {
+      const optionsFile = FileSystem.getFileForPath(optionsFilepath);
+      optionsFile.read(function(err, content) {
+        if (err || !content) {
+          reject(err);
+        } else {
+          try {
+            resolve(JSON.parse(content));
+          } catch (err) {
+            reject(err);
+          }
+        }
+      });
+    });
+  }
+
+  function loadOptionsFile(optionsFilepath) {
+    const fileName = FileUtils.getBaseName(optionsFilepath);
+    if (fileName === OPTIONS_FILE_NAME || fileName.endsWith('.json')) {
+      return readOptionsJSON(optionsFilepath);
+    }
+
+    return Promise.reject(new Error('Unknown options file type (' + fileName + ')'));
+  }
+
+  function checkOptionsFile(root, extension) {
+    return new Promise(function(resolve, reject) {
+      const filePath = root.fullPath + OPTIONS_FILE_NAME + extension;
+      FileSystem.resolve(filePath, function(err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(filePath);
+        }
+      });
+    });
+  }
+
+  function findOptionsFilepath(root, extensions) {
+    if (!extensions.length) {
+      return Promise.reject(new Error(`No options file found`));
+    }
+    const extension = extensions.shift();
+    return checkOptionsFile(root, extension).catch(function(err) {
+      return findOptionsFilepath(root, extensions);
+    });
+  }
+
+  function findAndLoadOptions(optionsFile) {
+    if (optionsFile) {
+      return loadOptionsFile(optionsFile);
+    }
+
+    const extensions = OPTIONS_FILE_EXTENSIONS.slice(0);
+    const root = ProjectManager.getProjectRoot();
+
+    return findOptionsFilepath(root, extensions).then(function(optionsFilepath) {
+      return loadOptionsFile(optionsFilepath);
+    });
+  }
 
   /**
    * Load prettier options file
@@ -14,24 +78,17 @@ define(function(require, exports, module) {
    * @param {string} optionsFile Filename.default is `.prettierrc` file from project root directory
    */
   function load(optionsFile) {
-    if (!optionsFile) {
-      const root = ProjectManager.getProjectRoot();
-      if (!root) {
-        return _bindLoadOptions();
-      }
-      optionsFile = FileSystem.getFileForPath(root.fullPath + OPTIONS_FILE_NAME);
-    }
-    optionsFile.read(function(err, content) {
-      if (!err && content) {
-        try {
-          options = JSON.parse(content);
-        } catch (error) {
-          console.error(
-            'Brackets Prettier - Error parsing options (' + optionsFile.fullPath + '). Using default.'
-          );
-        }
-      }
-    });
+    return findAndLoadOptions(optionsFile)
+      .then(function(optionsObject) {
+        options = optionsObject;
+      })
+      .catch(function(error) {
+        console.error(
+          'Brackets Prettier - Error parsing options: (' + error.message + '), using default.',
+          error
+        );
+        options = {};
+      });
   }
 
   /**
@@ -64,7 +121,13 @@ define(function(require, exports, module) {
     });
   }
 
+  function init() {
+    _bindLoadOptions();
+    load();
+  }
+
   module.exports = {
+    init: init,
     load: load,
     onChange: onChange,
     getOptions: getOptions,
