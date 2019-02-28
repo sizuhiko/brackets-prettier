@@ -11,7 +11,7 @@ gulp.task('install', () => {
   );
 });
 
-gulp.task('update3rd', ['install'], () => {
+gulp.task('update3rd', gulp.series('install'), () => {
   return gulp
     .src(['./node_modules/prettier/standalone.js', './node_modules/prettier/parser-*.js'])
     .pipe(gulp.dest('thirdparty'));
