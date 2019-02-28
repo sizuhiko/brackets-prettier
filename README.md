@@ -76,7 +76,7 @@ For any issues concerning the actual formatting please refer to the [prettier is
 
 ## License
 
-Brackets Beautify is licensed under the [MIT license][mit]. [prettier][prettier] is also licensed under the MIT license.
+Brackets Prettier is licensed under the [MIT license][mit]. [prettier][prettier] is also licensed under the MIT license.
 
 [brackets]: http://brackets.io
 [brackets extension manager]: https://github.com/adobe/brackets/wiki/Brackets-Extensions
