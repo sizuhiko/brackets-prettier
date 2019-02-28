@@ -4,7 +4,7 @@
 
 # Brackets Prettier
 
-[Brackets][brackets] Extension that formats open JavaScript, JSX, Flow, TypeScript, CSS, Less, SCSS, JSON, GraphQL and Markdown files using [prettier][prettier] version [1.13.4][prettier version].
+[Brackets][brackets] Extension that formats open JavaScript, JSX, Flow, TypeScript, CSS, Less, SCSS, JSON, GraphQL and Markdown files using [prettier][prettier] version [1.16.4][prettier version].
 
 ## Installation
 
